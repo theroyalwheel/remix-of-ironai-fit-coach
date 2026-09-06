@@ -53,10 +53,14 @@ export interface Profile {
   reminderTime: string; // "18:30"
   remindersEnabled: boolean;
   onboarded: boolean;
+  weightKg?: number;
+  heightCm?: number;
+  calorieTarget?: number;
+  proteinTarget?: number;
 }
 
 export interface SessionRecord {
-  id: string; // unique log id
+  id: string; // unique log id, used as client_operation_id in the cloud
   workoutId: string;
   title: string;
   category: Category;
@@ -65,17 +69,53 @@ export interface SessionRecord {
   calories: number;
   date: string; // ISO yyyy-mm-dd
   at: number; // timestamp
+  notes?: string;
+  effort?: number;
+}
+
+export interface MealLog {
+  id: string;
+  recipeId: string;
+  title: string;
+  servings: number;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  date: string;
+  at: number;
+}
+
+export interface Measurement {
+  id: string;
+  kind: "weight" | "sleep";
+  value: number;
+  date: string;
+  at: number;
 }
 
 export interface AppState {
   profile: Profile;
   sessions: SessionRecord[];
+  meals: MealLog[];
+  measurements: Measurement[];
+  favorites: string[];
   chat: ChatMessage[];
+  conversationId: string | null;
 }
 
 export interface ChatMessage {
   id: string;
   role: "user" | "coach";
   content: string;
+  at: number;
+}
+
+/** A local mutation waiting to be pushed to the cloud. */
+export interface PendingOp {
+  id: string;
+  table: "profiles" | "workout_sessions" | "nutrition_logs" | "measurements" | "favorites" | "coach_messages";
+  action: "upsert" | "delete";
+  payload: Record<string, unknown>;
   at: number;
 }
