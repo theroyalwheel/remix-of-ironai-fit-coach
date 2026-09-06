@@ -21,7 +21,7 @@ function w(
   description: string,
   cues: string[],
 ): Workout {
-  const videoUrl = CLIPS[clipIndex % CLIPS.length];
+  const videoUrl = CLIPS[clipIndex % CLIPS.length] as string;
   clipIndex += 1;
   return {
     id,
