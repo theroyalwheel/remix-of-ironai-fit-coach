@@ -46,7 +46,7 @@ export function recommendWorkout(
     return 0;
   };
 
-  let best = WORKOUTS[0];
+  let best = WORKOUTS[0] as Workout;
   let bestScore = -Infinity;
   for (const w of WORKOUTS) {
     let score = bias[w.category] * 2 + levelScore(w);
