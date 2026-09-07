@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as CalisthenicsIndexRouteImport } from './routes/calisthenics/index'
 import { Route as LearnIndexRouteImport } from './routes/learn/index'
 import { Route as LearnLessonIdRouteImport } from './routes/learn/$lessonId'
 import { Route as NutritionIndexRouteImport } from './routes/nutrition/index'
@@ -38,6 +39,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const ProgressRoute = ProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalisthenicsIndexRoute = CalisthenicsIndexRouteImport.update({
+  id: '/calisthenics/',
+  path: '/calisthenics/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/learn/$lessonId': typeof LearnLessonIdRoute
   '/nutrition/$recipeId': typeof NutritionRecipeIdRoute
   '/workouts/$workoutId': typeof WorkoutsWorkoutIdRoute
+  '/calisthenics/': typeof CalisthenicsIndexRoute
   '/learn/': typeof LearnIndexRoute
   '/nutrition/': typeof NutritionIndexRoute
   '/workouts/': typeof WorkoutsIndexRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/learn/$lessonId': typeof LearnLessonIdRoute
   '/nutrition/$recipeId': typeof NutritionRecipeIdRoute
   '/workouts/$workoutId': typeof WorkoutsWorkoutIdRoute
+  '/calisthenics': typeof CalisthenicsIndexRoute
   '/learn': typeof LearnIndexRoute
   '/nutrition': typeof NutritionIndexRoute
   '/workouts': typeof WorkoutsIndexRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/learn/$lessonId': typeof LearnLessonIdRoute
   '/nutrition/$recipeId': typeof NutritionRecipeIdRoute
   '/workouts/$workoutId': typeof WorkoutsWorkoutIdRoute
+  '/calisthenics/': typeof CalisthenicsIndexRoute
   '/learn/': typeof LearnIndexRoute
   '/nutrition/': typeof NutritionIndexRoute
   '/workouts/': typeof WorkoutsIndexRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/learn/$lessonId'
     | '/nutrition/$recipeId'
     | '/workouts/$workoutId'
+    | '/calisthenics/'
     | '/learn/'
     | '/nutrition/'
     | '/workouts/'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/learn/$lessonId'
     | '/nutrition/$recipeId'
     | '/workouts/$workoutId'
+    | '/calisthenics'
     | '/learn'
     | '/nutrition'
     | '/workouts'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/learn/$lessonId'
     | '/nutrition/$recipeId'
     | '/workouts/$workoutId'
+    | '/calisthenics/'
     | '/learn/'
     | '/nutrition/'
     | '/workouts/'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   LearnLessonIdRoute: typeof LearnLessonIdRoute
   NutritionRecipeIdRoute: typeof NutritionRecipeIdRoute
   WorkoutsWorkoutIdRoute: typeof WorkoutsWorkoutIdRoute
+  CalisthenicsIndexRoute: typeof CalisthenicsIndexRoute
   LearnIndexRoute: typeof LearnIndexRoute
   NutritionIndexRoute: typeof NutritionIndexRoute
   WorkoutsIndexRoute: typeof WorkoutsIndexRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/progress'
       fullPath: '/progress'
       preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calisthenics/': {
+      id: '/calisthenics/'
+      path: '/calisthenics'
+      fullPath: '/calisthenics/'
+      preLoaderRoute: typeof CalisthenicsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn/': {
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnLessonIdRoute: LearnLessonIdRoute,
   NutritionRecipeIdRoute: NutritionRecipeIdRoute,
   WorkoutsWorkoutIdRoute: WorkoutsWorkoutIdRoute,
+  CalisthenicsIndexRoute: CalisthenicsIndexRoute,
   LearnIndexRoute: LearnIndexRoute,
   NutritionIndexRoute: NutritionIndexRoute,
   WorkoutsIndexRoute: WorkoutsIndexRoute,
