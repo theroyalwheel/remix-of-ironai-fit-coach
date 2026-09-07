@@ -155,10 +155,10 @@ function ProfilePage() {
             <Input
               id="cal"
               inputMode="numeric"
-              value={profile.calorieTarget ?? ""}
+              value={profile.calorieTarget || ""}
               placeholder="2200"
               onChange={(e) =>
-                updateProfile({ calorieTarget: Number(e.target.value) || undefined })
+                updateProfile({ calorieTarget: Number(e.target.value) || 0 })
               }
             />
           </div>
@@ -167,10 +167,10 @@ function ProfilePage() {
             <Input
               id="pro"
               inputMode="numeric"
-              value={profile.proteinTarget ?? ""}
+              value={profile.proteinTarget || ""}
               placeholder="150"
               onChange={(e) =>
-                updateProfile({ proteinTarget: Number(e.target.value) || undefined })
+                updateProfile({ proteinTarget: Number(e.target.value) || 0 })
               }
             />
           </div>
